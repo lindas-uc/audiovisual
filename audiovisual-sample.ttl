@@ -1,0 +1,71 @@
+BASE <http://example.org/audiovisual/>
+PREFIX edm: <http://www.europeana.eu/schemas/edm/>
+PREFIX ebucore: <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#>
+PREFIX schema: <http://schema.org/>
+PREFIX ore: <http://www.openarchives.org/ore/terms/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ric: <http://example.org/ric/> 
+PREFIX po: <http://purl.org/ontology/po/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# This is a sample dataset of how to represent audiovisual data in RDF
+# using existing vocabularies. 
+
+<recordsense8_s01e01> a edm:ProvidedCHO ;
+  edm:realizes <sense8_s01e01>;
+  ric:isMemberOf <recordSetSense8> .
+
+<recordSetSense8> a ric:RecordSet .
+
+<sense8_s01e01> a ebucore:Programme, schema:TVEpisode ; # will be a schema:CreativeWork (inherited)
+  schema:director <LanaWachowski>,  <LillyWachowski>, <JMichaelStraczynskis> ;
+  dct:contributor <WillGorski_BrianJSmith_s01e01> ;
+  schema:productionCompany <Netflix> ;
+  ebucore:isEpisodeOf <sense8> ;
+  ebucore:isEpisodeOf <sense8_season1> ;
+  ebucore:hasCharacter <WillGorski>, <RileyGunnarsdóttir> ;
+  ebucore:isInstantiatedBy <netflix_sense8_s01e01> ;
+  rdfs:label "Limbic Resonance"@en .
+
+
+<LanaWachowski> a edm:Agent, ebucore:Agent, schema:Person ;
+  rdfs:label "Lana Wachowski" .
+
+<LillyWachowski> a edm:Agent, ebucore:Agent, schema:Person ;
+  rdfs:label "Lilly Wachowski " .
+
+<JMichaelStraczynskis> a edm:Agent, ebucore:Agent, schema:Person ;
+  rdfs:label "J. Michael Straczynski" .
+
+<WillGorski_BrianJSmith_s01e01> a ebucore:Cast ;
+  rdfs:label "Brian J. Smith" ;
+  rdfs:seeAlso <http://www.wikidata.org/entity/Q912401> ;
+  ebucore:isCharacter <WillGorski> .
+
+<WillGorski> a ebucore:Character ;
+  rdfs:label "Will Gorski" .
+  
+<BrianJSmith> a schema:Person ;
+  rdfs:label "Brian J. Smith" .
+
+<TuppenceMiddleton> a schema:Person ;
+  rdfs:label "Tuppence Middleton" .
+
+<RileyGunnarsdóttir> a ebucore:Character ;
+  rdfs:label "Riley Gunnarsdóttir" .
+
+<Netflix> a edm:Agent , schema:Organization ;
+  rdfs:label "Netflix" .
+
+<sense8> a ebucore:Series, schema:TVSeries ;
+  rdfs:label "Sense8"@en .
+
+<sense8_season1> a ebucore:Season .
+
+<netflix_sense8_s01e01> a edm:WebResource ;
+  ebucore:locator <https://www.netflix.com/watch/80025745?trackId=13752289&tctx> . # not a correct URI but you get the point
+
+<sense8_aggregator_s01e01> a ore:Aggregation ;
+  edm:hasView <netflix_sense8_s01e01> ;
+  edm:aggregatedCHO <recordsense8_s01e01> .
